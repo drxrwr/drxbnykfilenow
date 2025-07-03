@@ -28,7 +28,7 @@ document.getElementById('processFilesBtn').addEventListener('click', function ()
             generateButton.classList.add('generate-vcf-btn');
             generateButton.addEventListener('click', () => {
                 const lines = textArea.value.split('\n').map(line => line.trim());
-                const filename = (fileNameInput.value.trim() || file.name.replace(/\.[^/.]+$/, '')).replace(/[^a-zA-Z0-9-_]/g, '_');
+                const filename = fileNameInput.value.trim() || file.name.replace(/\.[^/.]+$/, '');
                 const contactName = globalContactName || filename;
 
                 let vcfContent = '';
@@ -74,12 +74,13 @@ document.getElementById('downloadZipBtn').addEventListener('click', function () 
     const textareas = fileAreas.querySelectorAll('textarea');
     const nameInputs = fileAreas.querySelectorAll('input[type="text"]');
     const globalContactName = document.getElementById('globalContactNameInput').value.trim();
+    const customZipName = document.getElementById('zipFileNameInput').value.trim();
 
     const zip = new JSZip();
 
     blocks.forEach((block, index) => {
         const originalFileName = block.textContent.replace('Nama File Asal: ', '').replace(/\.[^/.]+$/, '');
-        const customFileName = (nameInputs[index].value.trim() || originalFileName).replace(/[^a-zA-Z0-9-_]/g, '_');
+        const customFileName = nameInputs[index].value.trim() || originalFileName;
         const contactName = globalContactName || customFileName;
         const lines = textareas[index].value.split('\n').map(line => line.trim()).filter(line => line);
 
@@ -94,10 +95,12 @@ document.getElementById('downloadZipBtn').addEventListener('click', function () 
     });
 
     zip.generateAsync({ type: 'blob' }).then(function (content) {
+        const zipFileName = (customZipName || globalContactName || 'kontak') + '.zip';
+
         const url = URL.createObjectURL(content);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'semua_kontak.zip';
+        a.download = zipFileName;
         a.click();
         URL.revokeObjectURL(url);
     });
