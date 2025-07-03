@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TXT to VCF Converter</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+  <h1>TXT to VCF Converter</h1>
+
+  <div class="container">
+    <!-- Input untuk mengunggah file TXT -->
+    <label for="file-input">Pilih File TXT:</label>
+    <input type="file" id="file-input" accept=".txt" multiple>
+
+    <!-- Input untuk memasukkan nama kontak global -->
+    <label for="globalContactNameInput">Nama Kontak Global (Opsional):</label>
+    <input type="text" id="globalContactNameInput" placeholder="Masukkan nama kontak global">
+
+    <!-- Tombol untuk memulai proses konversi -->
+    <button id="processFilesBtn">Proses File</button>
+
+    <!-- Tombol untuk download semua hasil VCF dalam ZIP -->
+    <button id="downloadZipBtn" style="display: none;">Download ZIP Semua VCF</button>
+
+    <!-- Area untuk menampilkan hasil setelah file diunggah -->
+    <div id="file-areas"></div>
+  </div>
+
+  <!-- Hubungkan ke file JavaScript eksternal -->
+  <script src="script.js"></script>
+
+</body>
+</html>
